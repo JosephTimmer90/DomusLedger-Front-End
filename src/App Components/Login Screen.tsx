@@ -2,11 +2,6 @@ import { useBoundStore } from "../store";
 
 
 function LogInScreen(){
-
-    async function validateUserName(userName: string){
-       const response: string = fetch()
-    }
-
     const userName = useBoundStore((store) => store.userName);
     const passWord = useBoundStore((store) => store.passWord);
     const updateUserName = useBoundStore((store) => store.updateUserName);
