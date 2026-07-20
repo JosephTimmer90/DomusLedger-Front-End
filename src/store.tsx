@@ -5,7 +5,7 @@ import { createDashBoardSlice } from './dashBoardSlice';
 import { createAuthStoreSlice } from './accessTokenSlice';
 import { createLoginSlice } from './loginSlice';
 
-export const  useBoundStore = create<BoundStore>()(
+export const useBoundStore = create<BoundStore>()(
     persist(
         (...a) => ({
         ...createDashBoardSlice(...a),

@@ -9,10 +9,12 @@ export interface authStoreSlice {
   accessToken: string | null;
   refreshTimerId: number | null;
   isRefreshing: boolean;
+  dataMessage: string;
   generateAccessToken: () => Promise<string>;
   startAccessTokenRefresh: () => void;
   stopAccessTokenRefresh: () => void;
   clearAccessToken: () => void;
+  updateDataMessage: (message: string) => void;
 }
 
 export const createAuthStoreSlice: StateCreator<
@@ -24,6 +26,11 @@ export const createAuthStoreSlice: StateCreator<
       accessToken: null,
       refreshTimerId: null,
       isRefreshing: false,
+      dataMessage: 'Loading Data...',
+
+      updateDataMessage: (message: string) => {
+        set({ dataMessage: message });
+      },
 
       generateAccessToken: async () => {
         const token = await createFakeAccessToken();

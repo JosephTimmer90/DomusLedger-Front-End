@@ -24,15 +24,15 @@ function AccessToken() {
   }, [startAccessTokenRefresh, stopAccessTokenRefresh]);
 
   return (
-    <>
+    <div className="flex flex-col items-center ">
       <h1>Access Token</h1>
       <p>Access Token: {accessToken ?? "None"}</p>
       <p>Auto Refresh: {isRefreshing ? "Running (10s)" : "Stopped"}</p>
-      <button onClick={() => void generateAccessToken()}>Generate Now</button>
-      <button onClick={startAccessTokenRefresh}>Start Auto Refresh</button>
-      <button onClick={stopAccessTokenRefresh}>Stop Auto Refresh</button>
-      <button onClick={clearAccessToken}>Clear Token</button>
-    </>
+      <button className="border-2 max-w-fit p-2 m-5" onClick={() => void generateAccessToken()}>Generate Now</button>
+      <button className="border-2 max-w-fit p-2 m-5" onClick={startAccessTokenRefresh}>Start Auto Refresh</button>
+      <button className="border-2 max-w-fit p-2 m-5" onClick={stopAccessTokenRefresh}>Stop Auto Refresh</button>
+      <button className="border-2 max-w-fit p-2 m-5" onClick={clearAccessToken}>Clear Token</button>
+    </div>
   );
 }
 

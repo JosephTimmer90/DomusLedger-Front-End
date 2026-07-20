@@ -8,6 +8,9 @@ function NavMenu(){
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/DashBoard">Dashboard</Link></li>
                     <li><Link to="/Login Screen">Log In</Link></li>
+                    <li><Link to="/AccessToken">AccessToken</Link></li>
+                    <li><Link to="/GenericComponent">GenericComponent</Link></li>
+                    
                 </ul>
             </div>
         </>
