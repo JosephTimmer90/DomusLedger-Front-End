@@ -82,5 +82,6 @@ export const createAuthStoreSlice: StateCreator<
         if (typeof window !== "undefined") {
           window.localStorage.removeItem("auth-storage");
         }
+        console.log('You have logged out successfully.')
       },
     })

@@ -8,7 +8,6 @@ import LogInScreen from './App Components/Login Screen';
 import Header from './App Components/Header';
 
 function router() {
-
   return (
     <HashRouter>
       <Routes>

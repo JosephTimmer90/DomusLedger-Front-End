@@ -7,7 +7,8 @@ export interface loginSlice {
     failedAuthMessage: string;
     updateUserName: (newUserName: string) => void,
     updatePassWord: (newPassWord: string) => void,
-    updateFailedAuthMessage: (newFailedAuthMessage: string) => void
+    updateFailedAuthMessage: (newFailedAuthMessage: string) => void,
+    handleClear: () => void;
 
 }
 
@@ -23,4 +24,5 @@ export const createLoginSlice: StateCreator<
     updateUserName: (newUserName: string) => set(() => ({ userName: newUserName})),
     updatePassWord: (newPassWord: string) => set(() => ({passWord: newPassWord})),
     updateFailedAuthMessage: (newFailedAuthMessage: string) => set(() => ({failedAuthMessage: newFailedAuthMessage})),
+    handleClear: () => set(() => ({userName: '', passWord: ''})),
 })

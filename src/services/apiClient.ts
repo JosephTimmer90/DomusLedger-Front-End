@@ -1,4 +1,4 @@
-//Define the error class
+// //Define the error class
 // class ApiRequestError extends Error {
 //     status: number;
 //     constructor(message: string, status: number){
@@ -8,7 +8,7 @@
 //     }
 // }
 
-// Generic apiClient function
+// //Generic apiClient function
 // async function apiClient<T>(url:string): Promise<T> {
 //     const response = await fetch(url);
 

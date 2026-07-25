@@ -18,6 +18,7 @@ export function LogInScreen() {
   const updateUserName = useBoundStore((store) => store.updateUserName);
   const updatePassWord = useBoundStore((store) => store.updatePassWord);
   const updateFailedAuthMessage = useBoundStore((store) => store.updateFailedAuthMessage);
+  const handleClear = useBoundStore((store) => store.handleClear);
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
@@ -34,6 +35,7 @@ export function LogInScreen() {
       //const result = await response.json();
       navigate('/dashboard');
     } else{
+      handleClear();
       updateFailedAuthMessage('Login credentials could not be validated.')
     }
   }
