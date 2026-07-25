@@ -31,7 +31,7 @@ export function LogInScreen() {
     });
 
     if (response.ok) {
-      const result = await response.json();
+      //const result = await response.json();
       navigate('/dashboard');
     } else{
       updateFailedAuthMessage('Login credentials could not be validated.')
