@@ -11,7 +11,7 @@ const loginSchema = z.object({
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
 
-export function LogInScreen({ setTokens }: { setTokens: (tokens: any) => void}) {
+export function LogInScreen() {
   const userName = useBoundStore((store) => store.userName);
   const passWord = useBoundStore((store) => store.passWord);
   const failedAuthMessage = useBoundStore((store) => store.failedAuthMessage);
@@ -32,7 +32,6 @@ export function LogInScreen({ setTokens }: { setTokens: (tokens: any) => void}) 
 
     if (response.ok) {
       const result = await response.json();
-      setTokens(result.tokens);
       navigate('/dashboard');
     } else{
       updateFailedAuthMessage('Login credentials could not be validated.')
