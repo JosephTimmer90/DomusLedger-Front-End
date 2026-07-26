@@ -6,6 +6,7 @@ import DashBoard from './App Components/DashBoard'
 import AccessToken from './App Components/AccessToken'
 import LogInScreen from './App Components/Login Screen';
 import Header from './App Components/Header';
+import LogOutSuccess from './App Components/LogOutSuccess';
 
 function router() {
   return (
@@ -17,6 +18,7 @@ function router() {
           <Route path="/DashBoard" element={<DashBoard />} />
           <Route path="/AccessToken" element={<AccessToken />} />
           <Route path="/Login Screen" element={<LogInScreen />} />
+          <Route path="/LogoutSuccess" element={<LogOutSuccess />} />
         </Route>
       </Routes>
     </HashRouter>

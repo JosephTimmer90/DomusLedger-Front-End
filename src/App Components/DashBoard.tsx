@@ -1,4 +1,5 @@
 import { useBoundStore } from "../store";
+import { Link } from 'react-router-dom'
 
 function DashBoard(){
     const count = useBoundStore((store) => store.count);
@@ -11,9 +12,10 @@ function DashBoard(){
     return(
         <>
             <div className="flex justify-end mr-5">
-                <button 
+                <Link
                     className="border-2 border-white p-2 hover:bg-white hover:text-black active:bg-red-500"
-                    onClick={clearAccessToken}>Log Out</button>
+                    onClick={clearAccessToken}
+                    to="/LogoutSuccess">Log Out</Link>
             </div>
             <h1>This is the dashboard.</h1>
             <div>
