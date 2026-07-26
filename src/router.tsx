@@ -7,6 +7,7 @@ import AccessToken from './App Components/AccessToken'
 import LogInScreen from './App Components/Login Screen';
 import Header from './App Components/Header';
 import LogOutSuccess from './App Components/LogOutSuccess';
+import ProtectedRoute from './App Components/ProtectedRoute';
 
 function router() {
   return (
@@ -14,11 +15,13 @@ function router() {
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index element={<ViteHomePage />} />
-          <Route path="/GenericComponent" element={<GenericComponent />} />
-          <Route path="/DashBoard" element={<DashBoard />} />
-          <Route path="/AccessToken" element={<AccessToken />} />
-          <Route path="/Login Screen" element={<LogInScreen />} />
-          <Route path="/LogoutSuccess" element={<LogOutSuccess />} />
+          <Route path="login" element={<LogInScreen />} />
+          <Route path="logout-success" element={<LogOutSuccess />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="generic-component" element={<GenericComponent />} />
+            <Route path="dashboard" element={<DashBoard />} />
+            <Route path="access-token" element={<AccessToken />} />
+          </Route>
         </Route>
       </Routes>
     </HashRouter>

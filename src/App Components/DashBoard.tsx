@@ -15,7 +15,7 @@ function DashBoard(){
                 <Link
                     className="border-2 border-white p-2 hover:bg-white hover:text-black active:bg-red-500"
                     onClick={clearAccessToken}
-                    to="/LogoutSuccess">Log Out</Link>
+                    to="/logout-success">Log Out</Link>
             </div>
             <h1>This is the dashboard.</h1>
             <div>
