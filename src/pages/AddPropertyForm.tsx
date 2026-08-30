@@ -18,7 +18,6 @@ export type FormFields = z.infer<typeof schema>;
 
 function AddPropertyForm(){
 
-    const screenWidth = useBoundStore((store) => store.screenWidth);
     const toggleForm = useBoundStore((store) => store.togglePropertyButtonClicked);
     const appendPropertiesArray = useBoundStore((store) => store.appendPropertiesArray);
 
