@@ -32,6 +32,9 @@ export function LogInScreen() {
     resolver: zodResolver(loginSchema),
   });
 
+  const emailField = register("email");
+  const passwordField = register("password");
+
   const onSubmit = async (data: LoginFormInputs) => {
     const response = authenticateUNAndP({
       userName: data.email,
@@ -61,11 +64,14 @@ export function LogInScreen() {
             Email:
           </label>
           <input
-            {...register("email")}
+            {...emailField}
             id="username"
             type="text"
             className="border-solid border-white border-2 w-3/10 text-center"
-            onChange={(event) => updateUserName(event.target.value)}
+            onChange={(event) => {
+              emailField.onChange(event);
+              updateUserName(event.target.value);
+            }}
             value={userName}
           />
           {errors.email && <p>{errors.email.message}</p>}
@@ -75,11 +81,14 @@ export function LogInScreen() {
             Password:
           </label>
           <input
-            {...register("password")}
+            {...passwordField}
             id="password"
             type="password"
             className="border-solid border-white border-2 w-3/10 text-center"
-            onChange={(e) => updatePassWord(e.target.value)}
+            onChange={(event) => {
+              passwordField.onChange(event);
+              updatePassWord(event.target.value);
+            }}
             value={passWord}
           />
           {errors.password && <p>{errors.password.message}</p>}

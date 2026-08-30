@@ -8,6 +8,7 @@ import LogInScreen from './App Components/Login Screen';
 import Header from './App Components/Header';
 import LogOutSuccess from './App Components/LogOutSuccess';
 import ProtectedRoute from './App Components/ProtectedRoute';
+import PropertiesPage from './pages/PropertiesPage';
 
 function router() {
   return (
@@ -21,6 +22,7 @@ function router() {
             <Route path="generic-component" element={<GenericComponent />} />
             <Route path="dashboard" element={<DashBoard />} />
             <Route path="access-token" element={<AccessToken />} />
+            <Route path="properties-page" element={<PropertiesPage />} />
           </Route>
         </Route>
       </Routes>

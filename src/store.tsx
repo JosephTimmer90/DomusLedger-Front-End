@@ -4,6 +4,8 @@ import type { BoundStore } from './types';
 import { createDashBoardSlice } from './dashBoardSlice';
 import { createAuthStoreSlice } from './accessTokenSlice';
 import { createLoginSlice } from './loginSlice';
+import { createPropertiesSlice} from './propertiesSlice';
+import { createbrowserSlice } from './browserSlice';
 
 export const useBoundStore = create<BoundStore>()(
     persist(
@@ -11,6 +13,8 @@ export const useBoundStore = create<BoundStore>()(
         ...createDashBoardSlice(...a),
         ...createAuthStoreSlice(...a),
         ...createLoginSlice(...a),
+        ...createPropertiesSlice(...a),
+        ...createbrowserSlice(...a),
     }),
     {
         name: "auth-storage",

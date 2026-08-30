@@ -17,7 +17,8 @@ export const createDashBoardSlice: StateCreator<
 > = (set) => ({
     count: 0,
     computerBrand: 'HP',
-    incrementCount: () => set((state) => ({ count: state.count + 1 })),
+    incrementCount: () =>
+        set((state) => ({ count: state.count + 1 })),
     decrementCount: () => set((state) => ({ count: state.count - 1 })),
     changeComputerBrand: (newBrand: string) => set(() => ({ computerBrand: newBrand })),
 });
