@@ -7,13 +7,48 @@ function NavMenu(){
         <>
             <div className="m-10">
                 <ul>
-                    <li><Link to="/" className="cursor-pointer">Home</Link></li>
-                    <li><Link to="/login" className="cursor-pointer">Log In</Link></li>
-                    <li><Link to="/logout-success" onClick={logOut} className="active:text-red-500 cursor-pointer">Log Out</Link></li>
-                    <li><Link to="/dashboard" className="cursor-pointer">Dashboard</Link></li>
-                    <li><Link to="/access-token" className="cursor-pointer">AccessToken</Link></li>
-                    <li><Link to="/generic-component" className="cursor-pointer">GenericComponent</Link></li>
-                    <li><Link to="/properties-page" className="cursor-pointer">Properties Page</Link></li>
+                    <li className="m-5"><Link to="/" className="cursor-pointer offset-path">Home
+                        <span className="deco-1" aria-hidden='true'></span>
+                        <span className="deco-2" aria-hidden='true'></span>
+                        <span className="deco-3" aria-hidden='true'></span>
+                        <span className="deco-4" aria-hidden='true'></span>
+                        </Link></li>
+                    <li className="m-5"><Link to="/login" className="cursor-pointer offset-path">Log In
+                        <span className="deco-1" aria-hidden='true'></span>
+                        <span className="deco-2" aria-hidden='true'></span>
+                        <span className="deco-3" aria-hidden='true'></span>
+                        <span className="deco-4" aria-hidden='true'></span>
+                        </Link></li>
+                    <li className="m-5"><Link to="/logout-success" onClick={logOut} className="active:text-red-500 cursor-pointer offset-path">Log Out
+                        <span className="deco-1" aria-hidden='true'></span>
+                        <span className="deco-2" aria-hidden='true'></span>
+                        <span className="deco-3" aria-hidden='true'></span>
+                        <span className="deco-4" aria-hidden='true'></span>
+                        </Link></li>
+                    <li className="m-5"><Link to="/dashboard" className="cursor-pointer offset-path">Dashboard
+                        <span className="deco-1" aria-hidden='true'></span>
+                        <span className="deco-2" aria-hidden='true'></span>
+                        <span className="deco-3" aria-hidden='true'></span>
+                        <span className="deco-4" aria-hidden='true'></span>
+                        </Link></li>
+                    <li className="m-5"><Link to="/access-token" className="cursor-pointer offset-path">AccessToken
+                        <span className="deco-1" aria-hidden='true'></span>
+                        <span className="deco-2" aria-hidden='true'></span>
+                        <span className="deco-3" aria-hidden='true'></span>
+                        <span className="deco-4" aria-hidden='true'></span>
+                        </Link></li>
+                    <li className="m-5"><Link to="/generic-component" className="cursor-pointer offset-path">GenericComponent
+                        <span className="deco-1" aria-hidden='true'></span>
+                        <span className="deco-2" aria-hidden='true'></span>
+                        <span className="deco-3" aria-hidden='true'></span>
+                        <span className="deco-4" aria-hidden='true'></span>
+                        </Link></li>
+                    <li className="m-5"><Link to="/properties-page" className="cursor-pointer offset-path">Properties Page
+                        <span className="deco-1" aria-hidden='true'></span>
+                        <span className="deco-2" aria-hidden='true'></span>
+                        <span className="deco-3" aria-hidden='true'></span>
+                        <span className="deco-4" aria-hidden='true'></span>
+                        </Link></li>
                     
                 </ul>
             </div>
