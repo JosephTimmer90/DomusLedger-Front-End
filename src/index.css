@@ -11,8 +11,8 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
@@ -110,9 +110,19 @@ code {
   background: var(--code-bg);
 }
 
-
-
-.NavScreenContainer:hover .NavScreenMenu{
+.left-side:hover .NavScreenMenu {
   display: block;
 }
 
+.left-side,
+.right-side {
+  transition: width 220ms ease;
+}
+
+.left-side:hover {
+  width: 25vw;
+}
+
+.left-side:hover + .right-side {
+  width: 75vw;
+}
