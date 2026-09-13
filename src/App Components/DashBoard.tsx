@@ -1,6 +1,4 @@
 import { useBoundStore } from "../store";
-import { Link } from 'react-router-dom';
-import logOut from "../logout"
 import { intlNumberFormat, toUTCDate } from '../utils/format'
 
 function DashBoard(){
@@ -12,12 +10,6 @@ function DashBoard(){
 
     return(
         <>
-            <div className="flex justify-end mr-5">
-                <Link
-                    className="border-2 border-white p-2 hover:bg-white hover:text-black active:bg-red-500"
-                    onClick={logOut}
-                    to="/logout-success">Log Out</Link>
-            </div>
             <h1>This is the dashboard.</h1>
             <div>
                 <button onClick={decrement} className='inline w-16'>-</button>

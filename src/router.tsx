@@ -9,6 +9,8 @@ import Header from './App Components/Header';
 import LogOutSuccess from './App Components/LogOutSuccess';
 import ProtectedRoute from './App Components/ProtectedRoute';
 import PropertiesPage from './pages/PropertiesPage';
+import Layout from './App Components/Layout';
+import TenantsPage from './pages/TenantsPage';
 
 function router() {
   return (
@@ -19,10 +21,13 @@ function router() {
           <Route path="login" element={<LogInScreen />} />
           <Route path="logout-success" element={<LogOutSuccess />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="generic-component" element={<GenericComponent />} />
-            <Route path="dashboard" element={<DashBoard />} />
-            <Route path="access-token" element={<AccessToken />} />
-            <Route path="properties-page" element={<PropertiesPage />} />
+            <Route path='layout' element={<Layout />}>
+              <Route path="generic-component" element={<GenericComponent />} />
+              <Route path="dashboard" element={<DashBoard />} />
+              <Route path="access-token" element={<AccessToken />} />
+              <Route path="properties-page" element={<PropertiesPage />} />
+              <Route path="tenants-page" element={<PropertiesPage />} />
+            </Route>
           </Route>
         </Route>
       </Routes>

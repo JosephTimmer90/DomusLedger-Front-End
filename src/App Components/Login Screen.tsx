@@ -44,7 +44,7 @@ export function LogInScreen() {
     if (response) {
       await generateAccessToken();
       updateFailedAuthMessage("");
-      navigate("/dashboard");
+      navigate("/layout/dashboard");
       handleClear();
     } else {
       handleClear();

@@ -238,3 +238,8 @@ code {
   offset-distance: 1075%;
 }
 
+.active{
+  background-color: blue;
+  color: white;
+}
+
