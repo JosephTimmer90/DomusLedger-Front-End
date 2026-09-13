@@ -5,8 +5,14 @@ import { z } from "zod";
 import { useBoundStore } from "../store";
 import { useEffect } from "react";
 
+const phoneRegex = new RegExp(
+  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
+);
+
 const schema = z.object({
-  id: z.number().int({ message: "ID must be a whole number" }),
+  id: z
+    .number()
+    .int({ message: "ID must be a whole number" }),
   firstName: z
     .string()
     .min(4, { message: "First name must contain at least 2 characters" })
@@ -23,15 +29,17 @@ const schema = z.object({
   email: z
     .string()
     .email({ message: "Invalid email address" }),
-  zip: z.number().int({ message: "ZIP must be a whole number" }),
+  phone: z
+    .string()
+    .regex(phoneRegex, { message: "Invalid phone number" }),
 });
 
 export type FormFields = z.infer<typeof schema>;
 
 function AddTenantForm() {
   const toggleForm = useBoundStore((store) => store.togglePropertyButtonClicked);
-  const appendPropertiesArray = useBoundStore(
-    (store) => store.appendPropertiesArray
+  const appendTenantsArray = useBoundStore(
+    (store) => store.appendTenantsArray
   );
 
   const {
@@ -47,7 +55,7 @@ function AddTenantForm() {
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      appendPropertiesArray(data);
+      appendTenantsArray(data);
     } catch {
       setError("root", { message: "Form could not be submitted." });
     }
@@ -67,7 +75,7 @@ function AddTenantForm() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <input
-          {...register("id")}
+          {...register("id", {valueAsNumber: true})}
           type="number"
           placeholder="123"
           className="border-2 border-black text-center p-2 min-w-[40vw]"
@@ -75,40 +83,40 @@ function AddTenantForm() {
         {errors.id && <div className="text-red-500">{errors.id.message}</div>}
 
         <input
-          {...register("address")}
+          {...register("firstName")}
           type="text"
-          placeholder="address"
+          placeholder="first name"
           className="border-2 border-black text-center p-2 min-w-[40vw]"
         />
-        {errors.address && (
-          <div className="text-red-500">{errors.address.message}</div>
+        {errors.firstName && (
+          <div className="text-red-500">{errors.firstName.message}</div>
         )}
 
         <input
-          {...register("city")}
+          {...register("lastName")}
           type="text"
-          placeholder="city"
+          placeholder="last name"
           className="border-2 border-black text-center p-2 min-w-[40vw]"
         />
-        {errors.city && <div className="text-red-500">{errors.city.message}</div>}
+        {errors.lastName && <div className="text-red-500">{errors.lastName.message}</div>}
 
         <input
-          {...register("state")}
+          {...register("email")}
           type="text"
-          placeholder="state"
+          placeholder="email"
           className="border-2 border-black text-center p-2 min-w-[40vw]"
         />
-        {errors.state && (
-          <div className="text-red-500">{errors.state.message}</div>
+        {errors.email && (
+          <div className="text-red-500">{errors.email.message}</div>
         )}
 
         <input
-          {...register("zip")}
-          type="number"
-          placeholder="zip"
+          {...register("phone")}
+          type="string"
+          placeholder="phone"
           className="border-2 border-black text-center p-2 min-w-[40vw]"
         />
-        {errors.zip && <div className="text-red-500">{errors.zip.message}</div>}
+        {errors.phone && <div className="text-red-500">{errors.phone.message}</div>}
 
         <button
           disabled={isSubmitting}

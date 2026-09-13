@@ -26,7 +26,7 @@ function router() {
               <Route path="dashboard" element={<DashBoard />} />
               <Route path="access-token" element={<AccessToken />} />
               <Route path="properties-page" element={<PropertiesPage />} />
-              <Route path="tenants-page" element={<PropertiesPage />} />
+              <Route path="tenants-page" element={<TenantsPage />} />
             </Route>
           </Route>
         </Route>

@@ -16,9 +16,9 @@ export const createTenantsSlice: StateCreator<
     tenantsSlice
 > = (set) => ({
     addTenantButtonClicked: false,
-    tenantsArray: [{id: 1, firstName: 'John', lastName: 'Alex', email: 'John@goog.com', Phone: '(815) 123-456'}, 
-                    {id: 2, address: 'b', city: 'cb', state: 'sb', zip: 2},
-                    {id: 3, address: 'c', city: 'cc', state: 'sc', zip: 3}
+    tenantsArray: [{id: 1, firstName: 'John', lastName: 'Alex', email: 'John@goog.com', phone: '(815) 123-456'}, 
+                    {id: 2, firstName: 'Joe', lastName: 'Tim', email: 'JoeT@goog.com', phone: '(815) 123-457'}, 
+                    {id: 3, firstName: 'Linda', lastName: 'Tim', email: 'Lin@goog.com', phone: '(815) 123-458'} 
 ],
     toggleTenantButtonClicked: () =>
     set((state) => ({

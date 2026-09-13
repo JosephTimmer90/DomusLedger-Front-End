@@ -1,10 +1,10 @@
-import AddPropertyForm from './AddPropertyForm';
+import AddTenantForm from './AddTenantForm';
 import { useBoundStore } from "../store";
 
 function TenantsPage() {
-    const showForm = useBoundStore((store) => store.addPropertyButtonClicked);
-    const properties = useBoundStore((store) => store.propertiesArray);
-    const toggleForm = useBoundStore((store) => store.togglePropertyButtonClicked);
+    const showForm = useBoundStore((store) => store.addTenantButtonClicked);
+    const tenants = useBoundStore((store) => store.tenantsArray);
+    const toggleForm = useBoundStore((store) => store.toggleTenantButtonClicked);
 
   return (
     <div className='p-8'>
@@ -12,19 +12,19 @@ function TenantsPage() {
         <h1 className='text-2xl font-bold'>Tenants</h1>
         <button className='bg-blue-600 text-white px-4 py-2 rounded cursor-pointer'
             onClick={toggleForm}>
-          {showForm ? 'Close Form' : 'Add Property'}
+          {showForm ? 'Close Form' : 'Add Tenant'}
         </button>
       </div>
-      {properties?.length === 0 && <p className='text-gray-500'>No properties yet.</p>}
+      {tenants?.length === 0 && <p className='text-gray-500'>No tenants yet.</p>}
       <ul className='space-y-2'>
-        {properties?.map(p => (
+        {tenants?.map(p => (
           <li key={p.id} className='bg-white p-4 rounded shadow'>
-            <p className='font-medium'>{p.address}</p>
-            <p className='text-sm text-gray-500'>{p.city}, {p.state} {p.zip}</p>
+            <p className='font-medium'>{p.firstName} {p.lastName}</p>
+            <p className='text-sm text-gray-500'>{p.id}, {p.email} {p.phone}</p>
           </li>
         ))}
       </ul>
-      {showForm && <AddPropertyForm />}
+      {showForm && <AddTenantForm />}
     </div>
   );
 }
