@@ -16,9 +16,10 @@ export const createPropertiesSlice: StateCreator<
     propertiesSlice
 > = (set) => ({
     addPropertyButtonClicked: false,
-    propertiesArray: [{id: 1, address: 'a', city: 'ca', state: 'sa', zip: 1}, 
-                    {id: 2, address: 'b', city: 'cb', state: 'sb', zip: 2},
-                    {id: 3, address: 'c', city: 'cc', state: 'sc', zip: 3}
+    propertiesArray: [{ id: 'test-prop-1', address: '245 Western Ave',   city: 'Albany',  state: 'NY', zip: '12203', type: 'MULTI_FAMILY'},
+     { id: 'test-prop-2', address: '18 Elm Street',     city: 'Albany',  state: 'NY', zip: '12207', type: 'SINGLE_FAMILY'},
+      { id: 'test-prop-3', address: '77 Congress Street',city: 'Troy',   state: 'NY', zip: '12180', type: 'MULTI_FAMILY'},
+     { id: 'test-prop-4', address: '112 River Road',    city: 'Troy',   state: 'NY', zip: '12182', type: 'CONDO'}
 ],
     togglePropertyButtonClicked: () =>
     set((state) => ({

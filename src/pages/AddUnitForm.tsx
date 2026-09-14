@@ -5,31 +5,27 @@ import { z } from "zod";
 import { useBoundStore } from "../store";
 import { useEffect } from "react";
 
+
+
 const schema = z.object({
-  id: z.string({ message: "ID must be a string" }),
-  address: z
+  id: z.string({ message: "ID must be a string." }),
+  unitNumber: z
     .string()
-    .min(4, { message: "Address must contain at least 4 characters" }),
-  city: z
-    .string()
-    .min(4, { message: "City must contain at least 4 characters" })
-    .max(10, { message: "City name is too long" })
-    .regex(/^[a-zA-Z\s.-]+$/, {
-      message: "City name contains invalid characters",
-    }),
-  state: z
-    .string()
-    .min(2, { message: "State must contain at least 2 characters" }),
-  zip: z.string({ message: "ZIP must be a string" }),
-  type: z.string({message: 'Type must be string.'}),
+    .min(1, { message: "Unit number must contain at least 1 characters" }),
+  bedrooms: z
+    .number().int({message: 'Number of bedrooms must be a whole number.'}),
+  bathrooms: z
+    .number().int({message: 'Number of bathrooms must be a whole number.'}),
+  sqft: z.number().int({ message: "Square footage must be a whole number." }),
+  propertyId: z.string().min(1, { message: "Property ID must be a string atleast one character long." }),
 });
 
 export type FormFields = z.infer<typeof schema>;
 
-function AddPropertyForm() {
-  const toggleForm = useBoundStore((store) => store.togglePropertyButtonClicked);
-  const appendPropertiesArray = useBoundStore(
-    (store) => store.appendPropertiesArray
+function AddUnitForm() {
+  const toggleForm = useBoundStore((store) => store.toggleUnitButtonClicked);
+  const appendUnitsArray = useBoundStore(
+    (store) => store.appendUnitsArray
   );
 
   const {
@@ -45,7 +41,7 @@ function AddPropertyForm() {
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      appendPropertiesArray(data);
+      appendUnitsArray(data);
     } catch {
       setError("root", { message: "Form could not be submitted." });
     }
@@ -73,40 +69,48 @@ function AddPropertyForm() {
         {errors.id && <div className="text-red-500">{errors.id.message}</div>}
 
         <input
-          {...register("address")}
+          {...register("unitNumber")}
           type="text"
           placeholder="address"
           className="border-2 border-black text-center p-2 min-w-[40vw]"
         />
-        {errors.address && (
-          <div className="text-red-500">{errors.address.message}</div>
+        {errors.unitNumber && (
+          <div className="text-red-500">{errors.unitNumber.message}</div>
         )}
 
         <input
-          {...register("city")}
+          {...register("bedrooms")}
           type="text"
-          placeholder="city"
+          placeholder="num of bedrooms"
           className="border-2 border-black text-center p-2 min-w-[40vw]"
         />
-        {errors.city && <div className="text-red-500">{errors.city.message}</div>}
-
-        <input
-          {...register("state")}
-          type="text"
-          placeholder="state"
-          className="border-2 border-black text-center p-2 min-w-[40vw]"
-        />
-        {errors.state && (
-          <div className="text-red-500">{errors.state.message}</div>
+        {errors.bedrooms && (
+          <div className="text-red-500">{errors.bedrooms.message}</div>
         )}
 
         <input
-          {...register("zip")}
+          {...register("bathrooms")}
+          type="text"
+          placeholder="bathrooms"
+          className="border-2 border-black text-center p-2 min-w-[40vw]"
+        />
+        {errors.bathrooms && <div className="text-red-500">{errors.bathrooms.message}</div>}
+
+        <input
+          {...register("sqft")}
           type="number"
-          placeholder="zip"
+          placeholder="square footage"
           className="border-2 border-black text-center p-2 min-w-[40vw]"
         />
-        {errors.zip && <div className="text-red-500">{errors.zip.message}</div>}
+        {errors.sqft && <div className="text-red-500">{errors.sqft.message}</div>}
+
+        <input
+          {...register("propertyId")}
+          type="number"
+          placeholder="propertyId"
+          className="border-2 border-black text-center p-2 min-w-[40vw]"
+        />
+        {errors.propertyId && <div className="text-red-500">{errors.propertyId.message}</div>}
 
         <button
           disabled={isSubmitting}
@@ -122,4 +126,4 @@ function AddPropertyForm() {
   );
 }
 
-export default AddPropertyForm;
+export default AddUnitForm;

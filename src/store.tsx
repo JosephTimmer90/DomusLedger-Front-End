@@ -7,6 +7,8 @@ import { createLoginSlice } from './loginSlice';
 import { createPropertiesSlice} from './propertiesSlice';
 import { createbrowserSlice } from './browserSlice';
 import { createTenantsSlice } from './tenantsSlice';
+import { createLeasesSlice } from './leasesSlice';
+import { createUnitsSlice } from './unitsSlice';
 
 export const useBoundStore = create<BoundStore>()(
     persist(
@@ -17,6 +19,8 @@ export const useBoundStore = create<BoundStore>()(
         ...createPropertiesSlice(...a),
         ...createbrowserSlice(...a),
         ...createTenantsSlice(...a),
+        ...createLeasesSlice(...a),
+        ...createUnitsSlice(...a),
     }),
     {
         name: "auth-storage",

@@ -1,5 +1,5 @@
 import { useBoundStore } from "../store";
-import { intlNumberFormat, toUTCDate } from '../utils/format'
+import { formatAsIntlNumberDollars, toUTCDate } from '../utils/format'
 
 function DashBoard(){
     const count = useBoundStore((store) => store.count);
@@ -21,7 +21,7 @@ function DashBoard(){
                 <input type="text" onChange={(event) => changeComputerBrand(event.target.value)} value={computerBrand} className='text-center border p-2 border-red-700' />
             </div>
             <div className="m-5">
-                <p>This is an example of the intlNumber format utility: {intlNumberFormat(BigInt(12345678),"en-US")}</p>
+                <p>This is an example of the intlNumber format utility: {formatAsIntlNumberDollars(BigInt(12345678),"en-US")}</p>
             </div>
             <div className="m-5">
                 <p>This is an example of the utc date format utility: {toUTCDate()}</p>

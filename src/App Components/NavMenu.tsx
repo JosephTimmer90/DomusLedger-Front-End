@@ -55,6 +55,18 @@ function NavMenu(){
                         <span className="deco-3" aria-hidden='true'></span>
                         <span className="deco-4" aria-hidden='true'></span>
                         </NavLink></li>
+                    <li className="m-5"><NavLink to="/layout/leases-page" className="cursor-pointer offset-path">Leases Page
+                        <span className="deco-1" aria-hidden='true'></span>
+                        <span className="deco-2" aria-hidden='true'></span>
+                        <span className="deco-3" aria-hidden='true'></span>
+                        <span className="deco-4" aria-hidden='true'></span>
+                        </NavLink></li>
+                    <li className="m-5"><NavLink to="/layout/units-page" className="cursor-pointer offset-path">Units Page
+                        <span className="deco-1" aria-hidden='true'></span>
+                        <span className="deco-2" aria-hidden='true'></span>
+                        <span className="deco-3" aria-hidden='true'></span>
+                        <span className="deco-4" aria-hidden='true'></span>
+                    </NavLink></li>
                     
                 </ul>
             </div>
