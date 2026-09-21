@@ -17,7 +17,7 @@ function LeasesPage() {
         </button>
       </div>
       {leases?.length === 0 && <p className='text-gray-500'>No leases yet.</p>}
-      <ul className='space-y-2'>
+      <ul className='space-y-2 overflow-y-scroll h-[65vh]'>
         {leases?.map(p => (
           <li key={p.id} className='bg-white p-4 rounded shadow'>
             <p className='font-medium'>Unit Id: {p.unitId} Tenant Id:{p.tenantId}</p>

@@ -9,6 +9,16 @@ export interface tenantsSlice {
     appendTenantsArray: (newTenant: FormFields) => void
 }
 
+//   // ── Tenants ────────────────────────────────────────────────────────────────
+//   const tenants = [
+//     { id: 'test-tenant-1', firstName: 'Maria',   lastName: 'Chen',     email: 'maria.chen@email.test',    phone: '518-555-0101' },
+//     { id: 'test-tenant-2', firstName: 'David',   lastName: 'Okafor',   email: 'd.okafor@email.test',     phone: '518-555-0102' },
+//     { id: 'test-tenant-3', firstName: 'Sarah',   lastName: 'Nguyen',   email: 'sarah.nguyen@email.test',  phone: '518-555-0103' },
+//     { id: 'test-tenant-4', firstName: 'James',   lastName: 'Patel',    email: 'j.patel@email.test',      phone: '518-555-0104' },
+//     { id: 'test-tenant-5', firstName: 'Elena',   lastName: 'Rivera',   email: 'e.rivera@email.test',     phone: '518-555-0105' },
+//     { id: 'test-tenant-6', firstName: 'Michael', lastName: 'Thompson', email: 'm.thompson@email.test',   phone: '518-555-0106' },
+//   ];
+
 export const createTenantsSlice: StateCreator<
     BoundStore,
     [],
@@ -16,9 +26,12 @@ export const createTenantsSlice: StateCreator<
     tenantsSlice
 > = (set) => ({
     addTenantButtonClicked: false,
-    tenantsArray: [{id: 1, firstName: 'John', lastName: 'Alex', email: 'John@goog.com', phone: '(815) 123-456'}, 
-                    {id: 2, firstName: 'Joe', lastName: 'Tim', email: 'JoeT@goog.com', phone: '(815) 123-457'}, 
-                    {id: 3, firstName: 'Linda', lastName: 'Tim', email: 'Lin@goog.com', phone: '(815) 123-458'} 
+    tenantsArray: [{ id: 'test-tenant-1', firstName: 'Maria',   lastName: 'Chen',     email: 'maria.chen@email.test',    phone: '518-555-0101' },
+                { id: 'test-tenant-2', firstName: 'David',   lastName: 'Okafor',   email: 'd.okafor@email.test',     phone: '518-555-0102' },
+                { id: 'test-tenant-3', firstName: 'Sarah',   lastName: 'Nguyen',   email: 'sarah.nguyen@email.test',  phone: '518-555-0103' },
+                { id: 'test-tenant-4', firstName: 'James',   lastName: 'Patel',    email: 'j.patel@email.test',      phone: '518-555-0104' },
+                { id: 'test-tenant-5', firstName: 'Elena',   lastName: 'Rivera',   email: 'e.rivera@email.test',     phone: '518-555-0105' },
+                { id: 'test-tenant-6', firstName: 'Michael', lastName: 'Thompson', email: 'm.thompson@email.test',   phone: '518-555-0106' } 
 ],
     toggleTenantButtonClicked: () =>
     set((state) => ({

@@ -16,7 +16,7 @@ function TenantsPage() {
         </button>
       </div>
       {tenants?.length === 0 && <p className='text-gray-500'>No tenants yet.</p>}
-      <ul className='space-y-2'>
+      <ul className='space-y-2 overflow-y-scroll h-[65vh]'>
         {tenants?.map(p => (
           <li key={p.id} className='bg-white p-4 rounded shadow'>
             <p className='font-medium'>{p.firstName} {p.lastName}</p>

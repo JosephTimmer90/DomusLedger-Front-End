@@ -19,7 +19,7 @@ function UnitsPage() {
         </button>
       </div>
       {units?.length === 0 && <p className='text-gray-500'>No units yet.</p>}
-      <ul className='space-y-2'>
+      <ul className='space-y-2 overflow-y-scroll h-[65vh]'>
         {units?.map((p) => {
           const foundProperty = propertiesArray.find(
             (property) => property.id === p.propertyId

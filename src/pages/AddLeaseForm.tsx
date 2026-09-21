@@ -7,9 +7,9 @@ import { useEffect } from "react";
 import { formatAsBigIntCents } from "../utils/format";
 
 export interface newLease {
-    id: number;
-    unitId: number;
-    tenantId: number;
+    id: string;
+    unitId: string;
+    tenantId: string;
     lateFeeGraceDays: number;
     monthlyRentCents: bigint;
     secDepositCents: bigint;
@@ -17,9 +17,9 @@ export interface newLease {
 };
 
 const schema = z.object({
-  id: z.number().int({ message: "ID must be a whole number" }),
-  unitId: z.number().int({ message: "Unit ID must be a whole number" }),
-  tenantId: z.number().int({ message: "Tenant ID must be a whole number" }),
+  id: z.string({ message: "ID must be a string." }),
+  unitId: z.string({ message: "Unit ID must be a string" }),
+  tenantId: z.string({ message: "Tenant ID must be a string." }),
   lateFeeGraceDays: z.number().int({ message: "Late fee grace days must be a whole number." }),
   monthlyRentDollars: z.number().int({ message: "Monthly rent dollars must be a whole number representing dollars." }),
   secDepositDollars: z.number().int({ message: "Security deposit dollars must be a whole number representing dollars." }),
@@ -30,9 +30,11 @@ export type FormFields = z.infer<typeof schema>;
 
 function AddLeaseForm() {
   const toggleForm = useBoundStore((store) => store.toggleLeaseButtonClicked);
+  const leases = useBoundStore((store) => store.leasesArray);
   const appendLeasesArray = useBoundStore(
     (store) => store.appendLeasesArray
   );
+ 
 
   const {
     register,
@@ -47,6 +49,16 @@ function AddLeaseForm() {
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      const isTaken = leases.some((lease) => lease.unitId === data.unitId);
+      if (isTaken) {
+        setError("unitId", {
+          type: "manual",
+          message: "This unit is already assigned to a lease",
+        });
+        return;
+      }
+
         const newLease: newLease = {
             id: data.id,
             unitId: data.unitId,
@@ -76,16 +88,16 @@ function AddLeaseForm() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <input
-          {...register("id", {valueAsNumber: true})}
-          type="number"
+          {...register("id")}
+          type="text"
           placeholder="123"
           className="border-2 border-black text-center p-2 min-w-[40vw]"
         />
         {errors.id && <div className="text-red-500">{errors.id.message}</div>}
 
         <input
-          {...register("unitId", {valueAsNumber: true})}
-          type="number"
+          {...register("unitId")}
+          type="text"
           placeholder="unitId"
           className="border-2 border-black text-center p-2 min-w-[40vw]"
         />
@@ -94,8 +106,8 @@ function AddLeaseForm() {
         )}
 
         <input
-          {...register("tenantId", {valueAsNumber: true})}
-          type="number"
+          {...register("tenantId")}
+          type="text"
           placeholder="tenantId"
           className="border-2 border-black text-center p-2 min-w-[40vw]"
         />

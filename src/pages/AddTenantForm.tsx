@@ -11,8 +11,7 @@ const phoneRegex = new RegExp(
 
 const schema = z.object({
   id: z
-    .number()
-    .int({ message: "ID must be a whole number" }),
+    .string({ message: "ID must be a string." }),
   firstName: z
     .string()
     .min(4, { message: "First name must contain at least 2 characters" })
@@ -75,8 +74,8 @@ function AddTenantForm() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <input
-          {...register("id", {valueAsNumber: true})}
-          type="number"
+          {...register("id")}
+          type="text"
           placeholder="123"
           className="border-2 border-black text-center p-2 min-w-[40vw]"
         />
