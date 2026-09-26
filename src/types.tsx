@@ -6,6 +6,7 @@ import type { browserSlice } from './browserSlice';
 import type { tenantsSlice } from "./tenantsSlice";
 import type { leasesSlice } from "./leasesSlice";
 import type { unitsSlice } from "./unitsSlice";
+import type { paymentsSlice } from "./paymentsSlice"
 
 export type BoundStore = 
     dashBoardSlice 
@@ -15,4 +16,5 @@ export type BoundStore =
     & browserSlice
     &tenantsSlice
     &leasesSlice
-    &unitsSlice;
+    &unitsSlice
+    &paymentsSlice;

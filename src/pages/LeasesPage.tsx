@@ -1,6 +1,7 @@
 import AddLeaseForm from './AddLeaseForm';
 import { useBoundStore } from "../store";
 import { formatAsIntlNumberDollars } from '../utils/format';
+import type { newLease } from './AddLeaseForm'
 
 function LeasesPage() {
     const showForm = useBoundStore((store) => store.addLeaseButtonClicked);
@@ -18,7 +19,7 @@ function LeasesPage() {
       </div>
       {leases?.length === 0 && <p className='text-gray-500'>No leases yet.</p>}
       <ul className='space-y-2 overflow-y-scroll h-[65vh]'>
-        {leases?.map(p => (
+        {leases?.map((p: newLease) => (
           <li key={p.id} className='bg-white p-4 rounded shadow'>
             <p className='font-medium'>Unit Id: {p.unitId} Tenant Id:{p.tenantId}</p>
             <p className='text-sm text-gray-500'>Monthly Rent: {formatAsIntlNumberDollars(p.monthlyRentCents, 'en')} Late Fee: {formatAsIntlNumberDollars(p.lateFeeAmtCents, 'en')}</p>

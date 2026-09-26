@@ -13,6 +13,7 @@ import Layout from './App Components/Layout';
 import TenantsPage from './pages/TenantsPage';
 import LeasesPage from './pages/LeasesPage';
 import UnitsPage from './pages/UnitsPage';
+import PaymentsPage from './pages/PaymentsPage'
 
 function router() {
   return (
@@ -31,6 +32,7 @@ function router() {
               <Route path="tenants-page" element={<TenantsPage />} />
               <Route path="leases-page" element={<LeasesPage />} />
               <Route path="units-page" element={<UnitsPage />} />
+              <Route path="payments-page" element={<PaymentsPage />} />
             </Route>
           </Route>
         </Route>
