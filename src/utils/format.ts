@@ -10,8 +10,11 @@ export function formatAsBigIntCents(number: number){
   return BigInt(number*100);
 }
 
-
 export function toUTCDate(){
   const utcDate: string = new Date().toISOString();
   return utcDate;
+}
+
+export function toLocaleDateString(date: Date){
+  return date.toLocaleDateString()
 }

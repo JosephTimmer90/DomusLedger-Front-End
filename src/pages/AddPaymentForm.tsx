@@ -4,31 +4,43 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useBoundStore } from "../store";
 import { useEffect } from "react";
+import { formatAsBigIntCents } from "../utils/format";
 
 export interface newPayment {
-    id: string;
-    receiveDate: string;
-    amount: bigint;
-    status: string;
+  id: string;
+  receiveDate: Date;
+  amount: bigint;
+  status: string;
+}
+
+const StatusEnum = z.enum(["Received", "Partial", "Late"]);
+
+const parseLocalDateFromInput = (value: string): Date => {
+  const [year, month, day] = value.split("-").map(Number);
+  return new Date(year, month - 1, day);
 };
 
 const schema = z.object({
   id: z.string({ message: "ID must be a string." }),
   receiveDate: z
-    .string()
-    .min(1, { message: "Receive date must contain at least 1 characters" }),
-  amount: z
-    .number().int({message: 'Amount must be a whole number.'}),
+    .string({ message: "Receive date must be a date string." })
+    .regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Date must be YYYY-MM-DD." })
+    .transform((value) => parseLocalDateFromInput(value)),
+  amount: z.number().int({ message: "Amount must be a whole number." }),
   status: z
-    .string({message: 'Status must be a string.'}),
+    .string({ message: "Status must be a string." })
+    .refine((v) => StatusEnum.safeParse(v).success, {
+      message: "Must be: Received, Partial, or Late. Case-sensitive.",
+    }),
 });
 
-export type FormFields = z.infer<typeof schema>;
+export type FormFields = z.output<typeof schema>;
+export type FormInputFields = z.input<typeof schema>;
 
 function AddPaymentForm() {
   const toggleForm = useBoundStore((store) => store.togglePaymentButtonClicked);
   const appendPaymentsArray = useBoundStore(
-    (store) => store.appendPaymentsArray
+    (store) => store.appendPaymentsArray,
   );
 
   const {
@@ -37,14 +49,21 @@ function AddPaymentForm() {
     reset,
     setError,
     formState: { errors, isSubmitting, isSubmitSuccessful },
-  } = useForm<FormFields>({
+  } = useForm<FormInputFields, unknown, FormFields>({
     resolver: zodResolver(schema),
   });
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      appendPaymentsArray(data);
+
+      const newPayment: newPayment = {
+        id: data.id,
+        receiveDate: data.receiveDate,
+        amount: formatAsBigIntCents(data.amount),
+        status: data.status,
+      };
+      appendPaymentsArray(newPayment);
     } catch {
       setError("root", { message: "Form could not be submitted." });
     }
@@ -73,16 +92,16 @@ function AddPaymentForm() {
 
         <input
           {...register("receiveDate")}
-          type="text"
+          type="date"
           placeholder="date received"
-          className="border-2 border-black text-center p-2 min-w-[40vw]"
+          className="border-2 border-black text-center p-2 min-w-[40vw] centered-date-input"
         />
         {errors.receiveDate && (
           <div className="text-red-500">{errors.receiveDate.message}</div>
         )}
 
         <input
-          {...register("amount")}
+          {...register("amount", { valueAsNumber: true })}
           type="number"
           placeholder="amount received"
           className="border-2 border-black text-center p-2 min-w-[40vw]"
@@ -97,7 +116,9 @@ function AddPaymentForm() {
           placeholder="status"
           className="border-2 border-black text-center p-2 min-w-[40vw]"
         />
-        {errors.status && <div className="text-red-500">{errors.status.message}</div>}
+        {errors.status && (
+          <div className="text-red-500">{errors.status.message}</div>
+        )}
 
         <button
           disabled={isSubmitting}
@@ -107,7 +128,9 @@ function AddPaymentForm() {
           {isSubmitting ? "loading..." : "Submit"}
         </button>
 
-        {errors.root && <div className="text-red-500">{errors.root.message}</div>}
+        {errors.root && (
+          <div className="text-red-500">{errors.root.message}</div>
+        )}
       </form>
     </div>
   );
