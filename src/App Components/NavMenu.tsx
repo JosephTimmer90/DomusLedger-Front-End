@@ -135,7 +135,7 @@ function NavMenu() {
           </li>
           <li className="m-5">
             <NavLink
-              to="/layout/Expenses"
+              to="/layout/expenses-page"
               className="cursor-pointer offset-path"
             >
               Expenses Page
@@ -147,10 +147,10 @@ function NavMenu() {
           </li>
           <li className="m-5">
             <NavLink
-              to="/layout/Deposits-page"
+              to="/layout/deposits-page"
               className="cursor-pointer offset-path"
             >
-              Units Page
+              Security Deposits Page
               <span className="deco-1" aria-hidden="true"></span>
               <span className="deco-2" aria-hidden="true"></span>
               <span className="deco-3" aria-hidden="true"></span>
@@ -162,13 +162,14 @@ function NavMenu() {
               to="/layout/Reports-page"
               className="cursor-pointer offset-path"
             >
-              Units Page
+              reports
               <span className="deco-1" aria-hidden="true"></span>
               <span className="deco-2" aria-hidden="true"></span>
               <span className="deco-3" aria-hidden="true"></span>
               <span className="deco-4" aria-hidden="true"></span>
             </NavLink>
           </li>
+          
         </ul>
       </div>
     </>
