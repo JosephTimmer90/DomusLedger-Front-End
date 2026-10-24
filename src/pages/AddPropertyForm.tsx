@@ -21,7 +21,8 @@ const schema = z.object({
     .string()
     .min(2, { message: "State must contain at least 2 characters" }),
   zip: z.string({ message: "ZIP must be a string" }),
-  type: z.string({message: 'Type must be string.'}),
+  type: z.string({message: "Type must be a string."}),
+  seriesId: z.string({message: "Series Id must be a string."}),
 });
 
 export type FormFields = z.infer<typeof schema>;
@@ -107,6 +108,22 @@ function AddPropertyForm() {
           className="border-2 border-black text-center p-2 min-w-[40vw]"
         />
         {errors.zip && <div className="text-red-500">{errors.zip.message}</div>}
+
+        <input
+          {...register("type")}
+          type="text"
+          placeholder="Property Type"
+          className="border-2 border-black text-center p-2 min-w-[40vw]"
+        />
+        {errors.type && <div className="text-red-500">{errors.type.message}</div>}
+
+        <input
+          {...register("seriesId")}
+          type="text"
+          placeholder="Series Id"
+          className="border-2 border-black text-center p-2 min-w-[40vw]"
+        />
+        {errors.seriesId && <div className="text-red-500">{errors.seriesId.message}</div>}
 
         <button
           disabled={isSubmitting}

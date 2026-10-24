@@ -3,7 +3,11 @@ import type { BoundStore } from './types';
 import type { newExpense } from './pages/AddExpenseForm';
 import { formatAsBigIntCents } from './utils/format';
 
-const monthsAgo = (n: number) => { const d = new Date(); d.setMonth(d.getMonth() - n); return d; };
+const monthsAgo = (n: number) => {
+  const d = new Date(2002, 0, 1);
+  d.setMonth(d.getMonth() - n);
+  return d;
+};
 
 export interface expensesSlice {
     addExpenseButtonClicked: boolean,

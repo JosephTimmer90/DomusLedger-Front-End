@@ -159,10 +159,10 @@ function NavMenu() {
           </li>
           <li className="m-5">
             <NavLink
-              to="/layout/Reports-page"
+              to="/layout/reports-page"
               className="cursor-pointer offset-path"
             >
-              reports
+              Reports
               <span className="deco-1" aria-hidden="true"></span>
               <span className="deco-2" aria-hidden="true"></span>
               <span className="deco-3" aria-hidden="true"></span>

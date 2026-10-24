@@ -8,6 +8,7 @@ import { formatAsBigIntCents } from "../utils/format";
 
 export interface newPayment {
   id: string;
+  leaseId: string;
   receiveDate: Date;
   amount: bigint;
   status: string;
@@ -22,6 +23,7 @@ const parseLocalDateFromInput = (value: string): Date => {
 
 const schema = z.object({
   id: z.string({ message: "ID must be a string." }),
+  leaseId: z.string({ message: "Lease ID must be a string." }),
   receiveDate: z
     .string({ message: "Receive date must be a date string." })
     .regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Date must be YYYY-MM-DD." })
@@ -59,6 +61,7 @@ function AddPaymentForm() {
 
       const newPayment: newPayment = {
         id: data.id,
+        leaseId: data.leaseId,
         receiveDate: data.receiveDate,
         amount: formatAsBigIntCents(data.amount),
         status: data.status,
@@ -89,6 +92,16 @@ function AddPaymentForm() {
           className="border-2 border-black text-center p-2 min-w-[40vw]"
         />
         {errors.id && <div className="text-red-500">{errors.id.message}</div>}
+
+        <input
+          {...register("leaseId")}
+          type="text"
+          placeholder="lease id"
+          className="border-2 border-black text-center p-2 min-w-[40vw]"
+        />
+        {errors.leaseId && (
+          <div className="text-red-500">{errors.leaseId.message}</div>
+        )}
 
         <input
           {...register("receiveDate")}

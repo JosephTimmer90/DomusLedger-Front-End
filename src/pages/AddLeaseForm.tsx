@@ -5,6 +5,7 @@ import { z } from "zod";
 import { useBoundStore } from "../store";
 import { useEffect } from "react";
 import { formatAsBigIntCents } from "../utils/format";
+import type { newSecDeposit } from "../secDepositsSlice";
 
 export interface newLease {
     id: string;
@@ -34,6 +35,7 @@ function AddLeaseForm() {
   const appendLeasesArray = useBoundStore(
     (store) => store.appendLeasesArray
   );
+  const appendSecDepositsArray = useBoundStore((store) => store.appendSecDepositsArray);
  
 
   const {
@@ -59,16 +61,25 @@ function AddLeaseForm() {
         return;
       }
 
-        const newLease: newLease = {
-            id: data.id,
-            unitId: data.unitId,
-            tenantId: data.tenantId,
-            lateFeeGraceDays: data.lateFeeGraceDays,
-            monthlyRentCents: formatAsBigIntCents(data.monthlyRentDollars),
-            secDepositCents: formatAsBigIntCents(data.secDepositDollars),
-            lateFeeAmtCents: formatAsBigIntCents(data.lateFeeAmtDollars)
-        }      
+      const newLease: newLease = {
+        id: data.id,
+        unitId: data.unitId,
+        tenantId: data.tenantId,
+        lateFeeGraceDays: data.lateFeeGraceDays,
+        monthlyRentCents: formatAsBigIntCents(data.monthlyRentDollars),
+        secDepositCents: formatAsBigIntCents(data.secDepositDollars),
+        lateFeeAmtCents: formatAsBigIntCents(data.lateFeeAmtDollars)
+      }      
       appendLeasesArray(newLease);
+      const newSecDeposit: newSecDeposit = {
+        id: `SecDeposit-${data.id}`,
+        leaseId: data.id,
+        secDepositCents: formatAsBigIntCents(data.secDepositDollars),
+        heldSince: new Date(),
+        status: 'Held',
+        dateReturned: null
+      }
+      appendSecDepositsArray(newSecDeposit);
     } catch {
       setError("root", { message: "Form could not be submitted." });
     }

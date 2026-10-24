@@ -3,6 +3,90 @@ import type { BoundStore } from './types';
 import type { newPayment } from './pages/AddPaymentForm';
 
 const makeDate = (month: number, day: number, year: number) => new Date(year, month - 1, day);
+const basePeriods = [
+    { month: 1, day: 2, year: 2000 },
+    { month: 2, day: 2, year: 2000 },
+    { month: 3, day: 2, year: 2000 },
+    { month: 4, day: 2, year: 2000 },
+    { month: 5, day: 2, year: 2000 },
+    { month: 6, day: 2, year: 2000 },
+    { month: 7, day: 2, year: 2000 },
+    { month: 8, day: 2, year: 2000 },
+    { month: 9, day: 2, year: 2000 },
+    { month: 10, day: 2, year: 2000 },
+    { month: 11, day: 2, year: 2000 },
+    { month: 12, day: 2, year: 2000 },
+    { month: 1, day: 2, year: 2001 },
+    { month: 2, day: 2, year: 2001 },
+    { month: 3, day: 2, year: 2001 },
+    { month: 4, day: 2, year: 2001 },
+    { month: 5, day: 2, year: 2001 },
+    { month: 6, day: 2, year: 2001 },
+];
+
+type SeedOverride = {
+    amountCents?: number;
+    status?: 'Received' | 'Partial' | 'Late';
+    day?: number;
+};
+
+type PaymentSeed = {
+    leaseId: string;
+    defaultAmountCents: number;
+    overrides?: Record<string, SeedOverride>;
+};
+
+const paymentSeeds: PaymentSeed[] = [
+    { leaseId: 'test-lease-1', defaultAmountCents: 145000 },
+    {
+        leaseId: 'test-lease-2',
+        defaultAmountCents: 110000,
+        overrides: {
+            '2000-3': { amountCents: 80000, status: 'Partial' },
+        },
+    },
+    {
+        leaseId: 'test-lease-3',
+        defaultAmountCents: 175000,
+        overrides: {
+            '2000-11': { status: 'Late', day: 8 },
+        },
+    },
+    { leaseId: 'test-lease-4', defaultAmountCents: 220000 },
+    {
+        leaseId: 'test-lease-5',
+        defaultAmountCents: 135000,
+        overrides: {
+            '2000-7': { status: 'Late', day: 9 },
+        },
+    },
+    { leaseId: 'test-lease-6', defaultAmountCents: 165000 },
+];
+
+const buildSeedPayments = (): newPayment[] => {
+    let paymentNumber = 1;
+
+    return paymentSeeds.flatMap((seed) =>
+        basePeriods.map((period) => {
+            const key = `${period.year}-${period.month}`;
+            const override = seed.overrides?.[key];
+            const amountCents = override?.amountCents ?? seed.defaultAmountCents;
+            const status = override?.status ?? 'Received';
+            const day = override?.day ?? period.day;
+
+            const payment: newPayment = {
+                id: `payment-${paymentNumber}`,
+                leaseId: seed.leaseId,
+                receiveDate: makeDate(period.month, day, period.year),
+                amount: BigInt(amountCents),
+                status,
+            };
+
+            paymentNumber += 1;
+            return payment;
+        }),
+    );
+};
 
 export interface paymentsSlice {
     addPaymentButtonClicked: boolean,
@@ -18,115 +102,7 @@ export const createPaymentsSlice: StateCreator<
     paymentsSlice
 > = (set) => ({
     addPaymentButtonClicked: false,
-    paymentsArray: [  {id: 'payment-1', receiveDate: makeDate(1, 2, 2000), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-2', receiveDate: makeDate(2, 2, 2000), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-3', receiveDate: makeDate(3, 2, 2000), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-4', receiveDate: makeDate(4, 2, 2000), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-5', receiveDate: makeDate(5, 2, 2000), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-6', receiveDate: makeDate(6, 2, 2000), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-7', receiveDate: makeDate(7, 2, 2000), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-8', receiveDate: makeDate(8, 2, 2000), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-9', receiveDate: makeDate(9, 2, 2000), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-10', receiveDate: makeDate(10, 2, 2000), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-11', receiveDate: makeDate(11, 2, 2000), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-12', receiveDate: makeDate(12, 2, 2000), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-13', receiveDate: makeDate(1, 2, 2001), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-14', receiveDate: makeDate(2, 2, 2001), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-15', receiveDate: makeDate(3, 2, 2001), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-16', receiveDate: makeDate(4, 2, 2001), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-17', receiveDate: makeDate(5, 2, 2001), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-18', receiveDate: makeDate(6, 2, 2001), amount: BigInt(145000), status: 'Received'},
-        {id: 'payment-19', receiveDate: makeDate(1, 2, 2000), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-20', receiveDate: makeDate(2, 2, 2000), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-21', receiveDate: makeDate(3, 2, 2000), amount: BigInt(80000), status: 'Partial'},
-        {id: 'payment-22', receiveDate: makeDate(4, 2, 2000), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-23', receiveDate: makeDate(5, 2, 2000), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-24', receiveDate: makeDate(6, 2, 2000), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-25', receiveDate: makeDate(7, 2, 2000), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-26', receiveDate: makeDate(8, 2, 2000), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-27', receiveDate: makeDate(9, 2, 2000), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-28', receiveDate: makeDate(10, 2, 2000), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-29', receiveDate: makeDate(11, 2, 2000), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-30', receiveDate: makeDate(12, 2, 2000), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-31', receiveDate: makeDate(1, 2, 2001), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-32', receiveDate: makeDate(2, 2, 2001), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-33', receiveDate: makeDate(3, 2, 2001), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-34', receiveDate: makeDate(4, 2, 2001), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-35', receiveDate: makeDate(5, 2, 2001), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-36', receiveDate: makeDate(6, 2, 2001), amount: BigInt(110000), status: 'Received'},
-        {id: 'payment-37', receiveDate: makeDate(1, 2, 2000), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-38', receiveDate: makeDate(2, 2, 2000), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-39', receiveDate: makeDate(3, 2, 2000), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-40', receiveDate: makeDate(4, 2, 2000), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-41', receiveDate: makeDate(5, 2, 2000), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-42', receiveDate: makeDate(6, 2, 2000), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-43', receiveDate: makeDate(7, 2, 2000), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-44', receiveDate: makeDate(8, 2, 2000), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-45', receiveDate: makeDate(9, 2, 2000), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-46', receiveDate: makeDate(10, 2, 2000), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-47', receiveDate: makeDate(11, 8, 2000), amount: BigInt(175000), status: 'Late'},
-        {id: 'payment-48', receiveDate: makeDate(12, 2, 2000), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-49', receiveDate: makeDate(1, 2, 2001), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-50', receiveDate: makeDate(2, 2, 2001), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-51', receiveDate: makeDate(3, 2, 2001), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-52', receiveDate: makeDate(4, 2, 2001), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-53', receiveDate: makeDate(5, 2, 2001), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-54', receiveDate: makeDate(6, 2, 2001), amount: BigInt(175000), status: 'Received'},
-        {id: 'payment-55', receiveDate: makeDate(1, 2, 2000), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-56', receiveDate: makeDate(2, 2, 2000), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-57', receiveDate: makeDate(3, 2, 2000), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-58', receiveDate: makeDate(4, 2, 2000), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-59', receiveDate: makeDate(5, 2, 2000), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-60', receiveDate: makeDate(6, 2, 2000), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-61', receiveDate: makeDate(7, 2, 2000), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-62', receiveDate: makeDate(8, 2, 2000), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-63', receiveDate: makeDate(9, 2, 2000), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-64', receiveDate: makeDate(10, 2, 2000), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-65', receiveDate: makeDate(11, 2, 2000), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-66', receiveDate: makeDate(12, 2, 2000), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-67', receiveDate: makeDate(1, 2, 2001), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-68', receiveDate: makeDate(2, 2, 2001), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-69', receiveDate: makeDate(3, 2, 2001), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-70', receiveDate: makeDate(4, 2, 2001), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-71', receiveDate: makeDate(5, 2, 2001), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-72', receiveDate: makeDate(6, 2, 2001), amount: BigInt(220000), status: 'Received'},
-        {id: 'payment-73', receiveDate: makeDate(1, 2, 2000), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-74', receiveDate: makeDate(2, 2, 2000), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-75', receiveDate: makeDate(3, 2, 2000), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-76', receiveDate: makeDate(4, 2, 2000), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-77', receiveDate: makeDate(5, 2, 2000), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-78', receiveDate: makeDate(6, 2, 2000), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-79', receiveDate: makeDate(7, 9, 2000), amount: BigInt(135000), status: 'Late'},
-        {id: 'payment-80', receiveDate: makeDate(8, 2, 2000), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-81', receiveDate: makeDate(9, 2, 2000), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-82', receiveDate: makeDate(10, 2, 2000), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-83', receiveDate: makeDate(11, 2, 2000), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-84', receiveDate: makeDate(12, 2, 2000), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-85', receiveDate: makeDate(1, 2, 2001), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-86', receiveDate: makeDate(2, 2, 2001), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-87', receiveDate: makeDate(3, 2, 2001), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-88', receiveDate: makeDate(4, 2, 2001), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-89', receiveDate: makeDate(5, 2, 2001), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-90', receiveDate: makeDate(6, 2, 2001), amount: BigInt(135000), status: 'Received'},
-        {id: 'payment-91', receiveDate: makeDate(1, 2, 2000), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-92', receiveDate: makeDate(2, 2, 2000), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-93', receiveDate: makeDate(3, 2, 2000), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-94', receiveDate: makeDate(4, 2, 2000), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-95', receiveDate: makeDate(5, 2, 2000), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-96', receiveDate: makeDate(6, 2, 2000), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-97', receiveDate: makeDate(7, 2, 2000), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-98', receiveDate: makeDate(8, 2, 2000), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-99', receiveDate: makeDate(9, 2, 2000), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-100', receiveDate: makeDate(10, 2, 2000), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-101', receiveDate: makeDate(11, 2, 2000), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-102', receiveDate: makeDate(12, 2, 2000), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-103', receiveDate: makeDate(1, 2, 2001), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-104', receiveDate: makeDate(2, 2, 2001), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-105', receiveDate: makeDate(3, 2, 2001), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-106', receiveDate: makeDate(4, 2, 2001), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-107', receiveDate: makeDate(5, 2, 2001), amount: BigInt(165000), status: 'Received'},
-        {id: 'payment-108', receiveDate: makeDate(6, 2, 2001), amount: BigInt(165000), status: 'Received'}
-],
+    paymentsArray: buildSeedPayments(),
     togglePaymentButtonClicked: () =>
     set((state) => ({
         addPaymentButtonClicked: !state.addPaymentButtonClicked,

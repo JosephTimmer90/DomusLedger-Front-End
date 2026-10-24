@@ -16,10 +16,11 @@ export const createPropertiesSlice: StateCreator<
     propertiesSlice
 > = (set) => ({
     addPropertyButtonClicked: false,
-    propertiesArray: [{ id: 'test-prop-1', address: '245 Western Ave',   city: 'Albany',  state: 'NY', zip: '12203', type: 'MULTI_FAMILY'},
-     { id: 'test-prop-2', address: '18 Elm Street',     city: 'Albany',  state: 'NY', zip: '12207', type: 'SINGLE_FAMILY'},
-      { id: 'test-prop-3', address: '77 Congress Street',city: 'Troy',   state: 'NY', zip: '12180', type: 'MULTI_FAMILY'},
-     { id: 'test-prop-4', address: '112 River Road',    city: 'Troy',   state: 'NY', zip: '12182', type: 'CONDO'}
+    propertiesArray: [
+        { id: 'test-prop-1', address: '245 Western Ave',   city: 'Albany',  state: 'NY', zip: '12203', type: 'MULTI_FAMILY', seriesId: 'Albany' },
+        { id: 'test-prop-2', address: '18 Elm Street',     city: 'Albany',  state: 'NY', zip: '12207', type: 'SINGLE_FAMILY', seriesId: 'Albany' },
+        { id: 'test-prop-3', address: '77 Congress Street',city: 'Troy',   state: 'NY', zip: '12180', type: 'MULTI_FAMILY', seriesId: 'Troy' },
+        { id: 'test-prop-4', address: '112 River Road',    city: 'Troy',   state: 'NY', zip: '12182', type: 'CONDO', seriesId: 'Troy' }
 ],
     togglePropertyButtonClicked: () =>
     set((state) => ({

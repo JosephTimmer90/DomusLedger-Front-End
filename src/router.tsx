@@ -16,6 +16,7 @@ import UnitsPage from './pages/UnitsPage';
 import PaymentsPage from './pages/PaymentsPage'
 import ExpensesPage from './pages/ExpensesPage';
 import SecDepositsPage from './pages/SecDepositPage';
+import ReportsPage from './pages/ReportsPage';
 
 function router() {
   return (
@@ -37,6 +38,7 @@ function router() {
               <Route path="payments-page" element={<PaymentsPage />} />
               <Route path="expenses-page" element={<ExpensesPage />} />
               <Route path="deposits-page" element={<SecDepositsPage />} />
+              <Route path='reports-page' element={<ReportsPage />} />
             </Route>
           </Route>
         </Route>
