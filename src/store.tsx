@@ -13,6 +13,7 @@ import { createPaymentsSlice } from './paymentsSlice';
 import { createExpensesSlice } from './expensesSlice';
 import { createSecDepositsSlice } from './secDepositsSlice';
 import { createReportsSlice } from './reportsSlice';
+import { createExpenseCategoriesSlice } from './expenseCategoriesSlice';
 
 export const useBoundStore = create<BoundStore>()(
     persist(
@@ -28,7 +29,8 @@ export const useBoundStore = create<BoundStore>()(
         ...createPaymentsSlice(...a),
         ...createExpensesSlice(...a),
         ...createSecDepositsSlice(...a),
-        ...createReportsSlice(...a)
+        ...createReportsSlice(...a),
+        ...createExpenseCategoriesSlice(...a)
     }),
     {
         name: "auth-storage",

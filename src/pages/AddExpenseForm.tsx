@@ -43,6 +43,7 @@ function AddExpenseForm() {
   const appendExpensesArray = useBoundStore(
     (store) => store.appendExpensesArray,
   );
+  const expenseCategories = useBoundStore((store) => store.expenseCategoriesArray);
 
   const {
     register,
@@ -93,12 +94,18 @@ function AddExpenseForm() {
         />
         {errors.propertyId && <div className="text-red-500">{errors.propertyId.message}</div>}
 
-        <input
+        <select
+          id="expenseCategories"
+          required
           {...register("categoryId")}
-          type="text"
-          placeholder="Category"
           className="border-2 border-black text-center p-2 min-w-[40vw] centered-date-input"
-        />
+        >
+          {expenseCategories.map((category) => {
+            return(
+              <option value={category.expenseCategoryName}>{category.expenseCategoryName}</option>
+            )
+        })}
+        </select>
         {errors.categoryId && (
           <div className="text-red-500">{errors.categoryId.message}</div>
         )}

@@ -10,6 +10,7 @@ import type { paymentsSlice } from "./paymentsSlice"
 import type { expensesSlice } from "./expensesSlice";
 import type { secDepositsSlice } from "./secDepositsSlice";
 import type { reportsSlice } from "./reportsSlice";
+import type { expenseCategoriesSlice } from "./expenseCategoriesSlice";
 
 export type BoundStore = 
     dashBoardSlice 
@@ -23,4 +24,5 @@ export type BoundStore =
     &paymentsSlice
     &expensesSlice
     &secDepositsSlice
-    &reportsSlice;
+    &reportsSlice
+    &expenseCategoriesSlice;
