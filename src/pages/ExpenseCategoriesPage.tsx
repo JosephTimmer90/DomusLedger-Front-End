@@ -1,12 +1,13 @@
 import AddExpenseCategoryForm from './AddExpenseCategoryForm';
+import DeleteExpenseCategoryButton from './DeleteExpenseCategoryButton'
 import { useBoundStore } from "../store";
 
 function ExpenseCategoriesPage() {
     const showForm = useBoundStore((store) => store.addExpenseCategoryButtonClicked);
     const expenseCategories = useBoundStore((store) => store.expenseCategoriesArray);
+    const openExpenseCategory = useBoundStore((store) => store.openExpenseCategory);
     const toggleForm = useBoundStore((store) => store.toggleExpenseCategoryButtonClicked);
-
-
+    const updateOpenExpenseCategory = useBoundStore((store) => store.updateOpenExpenseCategory);
 
   return (
     <div className='p-8'>
@@ -21,8 +22,16 @@ function ExpenseCategoriesPage() {
       <ul className='space-y-2 overflow-y-scroll h-[65vh]'>
         {expenseCategories?.map((expenseCat) => {
             return (
-                <li key={expenseCat.id} className='bg-white p-4 rounded shadow'>
-                Expense Category Name: {expenseCat.expenseCategoryName}
+                <li key={expenseCat.id} className='bg-white p-4 rounded shadow flex justify-between items-center'>
+                  <p>Expense Category Name: {expenseCat.expenseCategoryName}</p>
+                <div>
+                  <DeleteExpenseCategoryButton
+                      expenseCategory={expenseCat}
+                      isOpen={openExpenseCategory === expenseCat.id}
+                      onOpen={() => {updateOpenExpenseCategory(expenseCat.id)}}
+                      onClose={() => {updateOpenExpenseCategory(null)}}
+                      />
+                  </div>
                 </li>
             )
         })

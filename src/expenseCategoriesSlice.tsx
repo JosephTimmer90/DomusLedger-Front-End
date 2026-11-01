@@ -5,8 +5,11 @@ import type { FormFields } from './pages/AddExpenseCategoryForm';
 export interface expenseCategoriesSlice {
     addExpenseCategoryButtonClicked: boolean,
     expenseCategoriesArray: FormFields[],
+    openExpenseCategory: string|null,
     toggleExpenseCategoryButtonClicked: () => void,
-    appendExpenseCategoriesArray: (newExpenseCategory: FormFields) => void
+    appendExpenseCategoriesArray: (newExpenseCategory: FormFields) => void,
+    updateOpenExpenseCategory: (id: string|null) => void,
+    deleteExpenseCategory: (id: string) => void
 }
 
 export const createExpenseCategoriesSlice: StateCreator<
@@ -26,6 +29,7 @@ export const createExpenseCategoriesSlice: StateCreator<
         {id: '0007', expenseCategoryName: 'Advertising'},
         {id: '0008', expenseCategoryName: 'HOA'}
     ],
+    openExpenseCategory: null,
     toggleExpenseCategoryButtonClicked: () =>
     set((state) => ({
         addExpenseCategoryButtonClicked: !state.addExpenseCategoryButtonClicked,
@@ -34,5 +38,14 @@ export const createExpenseCategoriesSlice: StateCreator<
     set((state) => ({
         ...state,
         expenseCategoriesArray: [...state.expenseCategoriesArray, newExpenseCategory],
+    })),
+    updateOpenExpenseCategory: (id: string|null) =>
+    set(() => ({
+      openExpenseCategory: id,
+    })),
+    deleteExpenseCategory: (id: string) => 
+    set((state) => ({
+        ...state,
+        expenseCategoriesArray: [...state.expenseCategoriesArray].toSpliced(state.expenseCategoriesArray.findIndex((element) => element.id === id), 1),
     })),
 });
